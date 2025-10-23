@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>PureLawn.co</title>
+  <meta name="description" content="Premium lawn care services — EliteLawn Co." />
+  <style>
+    /* ---------- VARIABLES ---------- */
+    :root{
+      --green-900: #0f3b2f;
+      --green-800: #1a5a3e;
+      --green-700: #2b7a4f;
+      --accent: #d9eede;
+      --muted: #f3f7f4;
+      --card-shadow: 0 8px 20px rgba(10,20,15,0.12);
+      --radius: 12px;
+      --transition: 300ms cubic-bezier(.2,.9,.3,1);
+      --accent-dark: #0b5a3f;
+      --accent-light: #e6f4ea;
+      --text: #0b2b21;
+      --white: #ffffff;
+    }
+
+    /* ---------- RESET ---------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--muted),#fff);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%;height:auto;border-radius:8px;}
+
+/* ---------- LAYOUT ---------- */
+    .container{max-width:1100px;margin:0 auto;padding:30px;}
+    header{position:sticky;top:0;z-index:60;background:linear-gradient(0deg, rgba(8,25,18,0.65), rgba(8,25,18,0.2));backdrop-filter: blur(6px);}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:18px 30px;}
+    .nav .brand{font-weight:800;font-size:1.35rem;color:var(--accent-light);letter-spacing:0.5px}
+    .nav .links{display:flex;gap:18px;align-items:center}
+    .nav a{color:var(--accent-light);opacity:0.95;font-weight:600;padding:8px 12px;border-radius:8px;transition:var(--transition)}
+    .nav a:hover{background:rgba(255,255,255,0.05);transform:translateY(-2px)}
+    .btn-primary{background:var(--white);color:var(--green-800);padding:10px 14px;border-radius:10px;font-weight:700;box-shadow:0 6px 18px rgba(10,20,15,0.12);border:none;cursor:pointer;transition:var(--transition)}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(10,20,15,0.16)}
+
+    /* ---------- HERO ---------- */
+    .hero{
+      position:relative;
+      min-height:440px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border-bottom:8px solid rgba(19,48,30,0.08);
+    }
+    .hero .bg{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      transform-origin:center;
+      will-change:transform,filter;
+    }
+    /* filter to make overlay readable */
+    .hero .overlay{
+      position:absolute;inset:0;background:linear-gradient(180deg, rgba(5,20,12,0.35), rgba(12,40,28,0.78));
+    }
+    .hero .content{
+      position:relative;color:var(--white);text-align:center;padding:36px 18px;z-index:2;max-width:960px;
+      animation:fadeDown .8s var(--transition) both;
+    }
+    .hero h1{font-family: Georgia, "Times New Roman", serif;font-weight:800;font-size:58px;margin:0 0 8px}
+    .hero p{font-size:1.05rem;opacity:0.9;margin-bottom:20px}
+
+    @keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+
+    /* ---------- ABOUT ---------- */
+    .about{background:var(--green-800);color:var(--white);padding:64px 30px;border-radius:0 0 18px 18px;margin-top:-12px}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1100px;margin:0 auto;align-items:center}
+    .about .card{background:transparent;padding:18px;border-radius:14px}
+    .about .values{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:18px}
+    .value{background:rgba(255,255,255,0.04);padding:12px;border-radius:10px;transition:var(--transition);cursor:default}
+    .value:hover{transform:translateY(-8px);background:rgba(255,255,255,0.07);box-shadow:var(--card-shadow)}
+
+    /* ---------- SERVICES ---------- */
+    .section{padding:64px 18px 48px}
+    .section h2{font-size:1.6rem;margin:0 0 18px;color:var(--green-900);text-align:center}
+    .services{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+    .service-card{background:var(--white);width:320px;border-radius:12px;padding:12px;box-shadow:var(--card-shadow);transition:var(--transition);overflow:hidden}
+    .service-card img{border-radius:10px;transition:transform var(--transition)}
+    .service-card:hover{transform:translateY(-10px)}
+    .service-card:hover img{transform:scale(1.06)}
+    .service-card .meta{padding:12px}
+    .service-card .meta h3{margin:0 0 8px;color:var(--green-900)}
+    .service-card .meta p{margin:0 0 12px;color:#405048}
+    .service-card .meta .cta{display:inline-block;background:var(--green-800);color:var(--white);padding:8px 12px;border-radius:8px;font-weight:700;transition:var(--transition)}
+    .service-card .meta .cta:hover{transform:translateY(-4px);background:var(--green-700)}
+
+    /* ---------- GALLERY / PROJECTS ---------- */
+    .gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}
+    .project{
+      position:relative;border-radius:12px;overflow:hidden;background:#ddd;min-height:160px;box-shadow:var(--card-shadow);
+    }
+    .project img{width:100%;height:100%;object-fit:cover;display:block;transition:transform var(--transition)}
+    .project .overlay{
+      position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.45));
+      display:flex;flex-direction:column;justify-content:flex-end;padding:18px;gap:10px;transform:translateY(0);
+    }
+    .project .caption{color:var(--white);font-weight:700}
+    .project .view{background:rgba(255,255,255,0.95);color:var(--green-800);padding:8px 10px;border-radius:8px;font-weight:700;width:max-content;opacity:0;transform:translateY(8px);transition:var(--transition)}
+    .project:hover img{transform:scale(1.05);filter:brightness(0.86)}
+    .project:hover .view{opacity:1;transform:translateY(0)}
+    .project:hover .overlay{background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.55))}
+
+    /* ---------- TESTIMONIALS ---------- */
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .testimonial{background:var(--white);padding:18px;border-radius:12px;box-shadow:var(--card-shadow);transition:var(--transition)}
+    .testimonial:hover{transform:translateY(-8px);box-shadow:0 18px 34px rgba(10,20,15,0.14)}
+    .stars{color:#ffb84d;font-weight:800;margin-bottom:6px}
+
+    /* ---------- FAQ ---------- */
+    .faq{background:var(--green-800);color:var(--white);padding:42px 18px;border-radius:12px;margin-top:24px}
+    .faq .q{background:rgba(255,255,255,0.04);padding:14px;border-radius:10px;margin-bottom:10px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:var(--transition)}
+    .faq .q:hover{background:rgba(255,255,255,0.06)}
+    .faq .a{padding:12px 14px;margin-top:8px;background:rgba(0,0,0,0.06);border-radius:10px;display:none}
+    .faq .q .icon{transition:var(--transition);transform-origin:center}
+
+    /* ---------- CONTACT ---------- */
+    .contact{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start;padding:36px 18px;margin-top:22px;background:var(--muted);border-radius:12px}
+    .contact form{background:var(--white);padding:18px;border-radius:12px;box-shadow:var(--card-shadow)}
+    .field{display:flex;flex-direction:column;margin-bottom:12px}
+    .field label{font-weight:600;margin-bottom:6px}
+    .field input,.field textarea{padding:10px;border-radius:8px;border:1px solid #dbece0;font-size:1rem;outline:none;transition:var(--transition)}
+    .field input:focus,.field textarea:focus{box-shadow:0 6px 18px rgba(12,80,52,0.08);transform:translateY(-2px);border-color:var(--green-700)}
+    .submit{background:var(--green-800);color:var(--white);padding:12px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+    .submit:hover{transform:translateY(-4px)}
+
+    /* ---------- BOOKING STRIP ---------- */
+    .booking{background:var(--green-900);color:var(--white);padding:22px;border-radius:10px;margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .steps{display:flex;gap:14px;align-items:center}
+    .step{display:flex;flex-direction:column;align-items:center;font-size:0.9rem}
+    .step .num{background:var(--accent-light);color:var(--green-800);padding:8px;border-radius:10px;font-weight:800;margin-bottom:6px}
+
+    /* ---------- FOOTER ---------- */
+    footer{padding:28px 18px;margin-top:28px;background:var(--green-900);color:var(--accent-light);border-radius:8px}
+    footer .foot-grid{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}
+    footer small{opacity:0.85}
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:980px){
+      .testimonials{grid-template-columns:repeat(2,1fr)}
+      .about-grid{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr}
+      .contact{grid-template-columns:1fr}
+      .hero h1{font-size:40px}
+    }
+    @media (max-width:600px){
+      .testimonials{grid-template-columns:1fr}
+      .nav .links{display:none}
+      .nav{padding:12px 16px}
+      .container{padding:12px}
+      .hero{min-height:360px}
+      .hero h1{font-size:34px}
+      .services{flex-direction:column;align-items:center}
+    }
+
+    /* ---------- UTILS: in-view animations ---------- */
+    .reveal{opacity:0;transform:translateY(18px);transition:var(--transition);will-change:transform,opacity}
+    .reveal.in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER / NAV ===== -->
+  <header>
+    <div class="container nav" role="navigation" aria-label="main navigation">
+      <div class="brand">PureLawn.co</div>
+      <nav class="links" aria-hidden="false">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="btn-primary" aria-label="Book your service">Book Your Service</button>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="top" role="banner" aria-label="Hero">
+    <!-- Replace this background image with your lawn-top image -->
+    <div class="bg" style="background-image:url('https://i.pinimg.com/736x/22/29/ba/2229ba0126e8b47427115d45a9bd157c.jpg'); filter:brightness(0.95)"></div>
+    <div class="overlay"></div>
+
+    <div class="content container">
+      <div style="max-width:900px;margin:0 auto">
+        <h1>PureLawn.co</h1>
+        <p>Premium lawn care — reliability, precision and beautiful results. Serving Manchester and surrounding areas.</p>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+          <button class="btn-primary" onclick="scrollToSection('#services')">Get A Free Quote</button>
+          <a href="#contact" class="btn" style="display:inline-block;padding:10px 14px;border-radius:10px;background:transparent;color:var(--white);border:1px solid rgba(255,255,255,0.12);font-weight:700">Send Enquiry</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about" aria-labelledby="about-heading">
+    <div class="container about-grid">
+      <div class="card reveal">
+        <!-- Replace image for about -->
+        <img src="https://i.pinimg.com/736x/79/cd/ab/79cdab26d2ec69c64a3a1157785eb1da.jpg" alt="Well maintained lawn by EliteLawn">
+      </div>
+      <div class="card reveal">
+        <h2 id="about-heading" style="margin-top:0">About PureLawn.co</h2>
+        <p style="opacity:0.95">
+          EliteLawn Co. is dedicated to providing premium lawn care and landscaping services. From regular lawn cuts to one-off maintenance and commercial contracts, we aim for a pristine finish every time.
+        </p>
+
+        <div class="values" aria-hidden="false">
+          <div class="value">
+            <strong>Reliability</strong>
+            <div style="font-size:0.92rem;opacity:0.9">On-time visits and consistent results.</div>
+          </div>
+          <div class="value">
+            <strong>Quality</strong>
+            <div style="font-size:0.92rem;opacity:0.9">High standard of workmanship and care.</div>
+          </div>
+          <div class="value">
+            <strong>Customer Care</strong>
+            <div style="font-size:0.92rem;opacity:0.9">Friendly service with transparent quotes.</div>
+          </div>
+          <div class="value">
+            <strong>Innovation</strong>
+            <div style="font-size:0.92rem;opacity:0.9">Efficient equipment and eco-friendly practices.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SERVICES ===== -->
+  <section class="section" id="services" aria-labelledby="services-heading">
+    <div class="container">
+      <h2 id="services-heading">Our Services</h2>
+      <div class="services">
+        <article class="service-card reveal" tabindex="0" aria-labelledby="s1">
+          <img src="https://i.pinimg.com/736x/11/d0/46/11d04664e59691937f2c7019ff4c82d4.jpg" alt="Regular lawn cut">
+          <div class="meta">
+            <h3 id="s1">Regular Lawn Cuts</h3>
+            <p>Scheduled weekly or fortnightly trims to keep your lawn tidy and healthy.</p>
+            <a class="cta" href="#contact">Get Your Free Quote</a>
+          </div>
+        </article>
+
+        <article class="service-card reveal" tabindex="0" aria-labelledby="s2">
+          <img src="https://i.pinimg.com/736x/79/cd/ab/79cdab26d2ec69c64a3a1157785eb1da.jpg" alt="One-off cut">
+          <div class="meta">
+            <h3 id="s2">One-Off Cuts</h3>
+            <p>Occasional visits for seasonal tidy-ups and event prep.</p>
+            <a class="cta" href="#contact">Book A One-Off</a>
+          </div>
+        </article>
+
+        <article class="service-card reveal" tabindex="0" aria-labelledby="s3">
+          <img src="https://i.pinimg.com/1200x/62/7a/dd/627add717b5a1c4299653024c98406ab.jpg" alt="Commercial lawn care">
+          <div class="meta">
+            <h3 id="s3">Commercial Contracts</h3>
+            <p>Reliable maintenance for offices, parks and commercial properties.</p>
+            <a class="cta" href="#contact">Contact Us</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WORK / PROJECTS ===== -->
+  <section class="section" id="work" aria-labelledby="work-heading">
+    <div class="container">
+      <h2 id="work-heading">Our Work in Manchester</h2>
+      <div class="gallery reveal">
+        <figure class="project" tabindex="0" aria-label="Havers Family Garden">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1000&q=60" alt="The Havers Family Garden">
+          <figcaption class="overlay">
+            <div class="caption">The Havers Family</div>
+            <a class="view" href="#contact">View Case Study</a>
+          </figcaption>
+        </figure>
+
+        <figure class="project" tabindex="0" aria-label="Commercial Estate">
+          <img src="https://i.pinimg.com/736x/f0/17/0e/f0170ecad86895a9fae2113946816431.jpg" alt="Commercial estate lawn">
+          <figcaption class="overlay">
+            <div class="caption">Commercial Clients</div>
+            <a class="view" href="#contact">View Case Study</a>
+          </figcaption>
+        </figure>
+
+        <figure class="project" tabindex="0" aria-label="Park Revamp">
+          <img src="https://i.pinimg.com/736x/dd/b7/08/ddb708ffcd0734316e3e510f7860df7b.jpg" alt="Park">
+          <figcaption class="overlay">
+            <div class="caption">Community Park</div>
+            <a class="view" href="#contact">View Case Study</a>
+          </figcaption>
+        </figure>
+
+        <figure class="project" tabindex="0" aria-label="Garden Makeover">
+          <img src="https://i.pinimg.com/736x/06/98/ac/0698ac34eb4e4adda92ad25b7280ac1d.jpg" alt="Garden makeover">
+          <figcaption class="overlay">
+            <div class="caption">Private Garden</div>
+            <a class="view" href="#contact">View Case Study</a>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="section" aria-labelledby="test-heading">
+    <div class="container">
+      <h2 id="test-heading">What Our Happy Clients Say</h2>
+      <div class="testimonials reveal">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>"Fantastic work! Lawn looks better than ever. Punctual and professional."</p>
+          <small>- Maria W.</small>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>"Great customer service and excellent results. Highly recommended."</p>
+          <small>- Alan H.</small>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p>"Responsive team and very efficient. My garden looks amazing."</p>
+          <small>- Priya S.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq container" aria-labelledby="faq-heading">
+    <h2 id="faq-heading" style="margin-top:0">Frequently Asked Questions</h2>
+
+    <div class="q" data-index="0">
+      <div>What areas do you service in Manchester?</div>
+      <div class="icon">+</div>
+    </div>
+    <div class="a">We service most areas across Manchester and nearby suburbs. Enter your postcode in the contact form for exact availability.</div>
+
+    <div class="q" data-index="1">
+      <div>How often should I have my lawn mowed?</div>
+      <div class="icon">+</div>
+    </div>
+    <div class="a">During the growing season, weekly or fortnightly cuts keep lawns healthy. We recommend weekly for fast-growing seasons.</div>
+
+    <div class="q" data-index="2">
+      <div>Do you provide commercial lawn maintenance?</div>
+      <div class="icon">+</div>
+    </div>
+    <div class="a">Yes — we provide commercial contracts, scheduled visits, and bespoke service levels for businesses and councils.</div>
+  </section>
+
+  <!-- ===== CONTACT + ENQUIRY ===== -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact reveal" aria-labelledby="contact-heading">
+        <div>
+          <h2 id="contact-heading">Send Your Enquiry Here</h2>
+          <p>Tell us about your property and requirements. We'll reply with a tailored quote and availability.</p>
+
+          <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
+            <div style="background:var(--white);padding:12px;border-radius:10px;box-shadow:var(--card-shadow);min-width:180px">
+              <strong>Booking is Easy</strong>
+              <div style="font-size:0.95rem;margin-top:8px">Check availability → Get a quote → Confirm</div>
+            </div>
+            <div style="background:var(--white);padding:12px;border-radius:10px;box-shadow:var(--card-shadow);min-width:180px">
+              <strong>Call Us</strong>
+              <div style="font-size:0.95rem;margin-top:8px">Tel: 0161 555 0123</div>
+            </div>
+          </div>
+
+        </div>
+
+        <form id="enquiryForm" aria-label="Contact form">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" required placeholder="Your name">
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@example.com">
+          </div>
+
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" placeholder="+44 7...">
+          </div>
+
+          <div class="field">
+            <label for="message">Message / Postcode</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us about your lawn and postcode" required></textarea>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center">
+            <button type="submit" class="submit">Send Enquiry</button>
+            <div id="formMessage" style="font-size:0.95rem"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <strong>EliteLawn Co.</strong>
+        <div style="margin-top:8px">Premium lawn care in Manchester</div>
+        <small style="display:block;margin-top:10px">info@elitelawn.co • 0161 555 0123</small>
+      </div>
+
+      <div>
+        <nav aria-label="Footer nav">
+          <a href="#services" style="display:block;margin-bottom:8px">Services</a>
+          <a href="#work" style="display:block;margin-bottom:8px">Work</a>
+          <a href="#contact" style="display:block">Contact</a>
+        </nav>
+      </div>
+
+      <div style="text-align:right">
+        <div>Follow us</div>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <a href="#" aria-label="facebook">FB</a>
+          <a href="#" aria-label="instagram">IG</a>
+          <a href="#" aria-label="twitter">TW</a>
+        </div>
+        <small style="display:block;margin-top:12px;opacity:0.9">© 2025 PureLawn.co All rights reserved.</small>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Utility: scroll to section ----------
+    function scrollToSection(sel){
+      document.querySelector(sel).scrollIntoView({behavior:'smooth',block:'start'});
+    }
+
+    // ---------- Intersection observer: reveal elements on scroll ----------
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('in');
+          entry.target.classList.add('animated');
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold: 0.12});
+    reveals.forEach(r => io.observe(r));
+
+    // ---------- Simple hover subtle parallax for hero bg ----------
+    const hero = document.querySelector('.hero');
+    const bg = document.querySelector('.hero .bg');
+    hero.addEventListener('mousemove', (e)=>{
+      const rect = hero.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      bg.style.transform = `scale(1.03) translate(${x*6}px, ${y*6}px)`;
+    });
+    hero.addEventListener('mouseleave', ()=> bg.style.transform = 'scale(1) translate(0,0)');
+
+    // ---------- FAQ accordion ----------
+    document.querySelectorAll('.faq .q').forEach((q, idx) => {
+      q.addEventListener('click', () => {
+        const answer = q.nextElementSibling;
+        const icon = q.querySelector('.icon');
+        const isOpen = answer.style.display === 'block';
+        // close all
+        document.querySelectorAll('.faq .a').forEach(a => a.style.display = 'none');
+        document.querySelectorAll('.faq .icon').forEach(i => i.textContent = '+');
+        if(!isOpen){
+          answer.style.display = 'block';
+          icon.textContent = '−';
+          answer.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+        } else {
+          answer.style.display = 'none';
+          icon.textContent = '+';
+        }
+      });
+    });
+
+    // ---------- Contact form: simple client-side validation + UX ----------
+    const form = document.getElementById('enquiryForm');
+    const formMessage = document.getElementById('formMessage');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const message = form.message.value.trim();
+
+      if(!name || !email || !message){
+        formMessage.textContent = 'Please complete required fields.';
+        formMessage.style.color = '#b45b5b';
+        return;
+      }
+      // Simulate submit success (in real usage, send to backend)
+      formMessage.textContent = 'Sending...';
+      formMessage.style.color = '#0b6b40';
+
+      setTimeout(() => {
+        formMessage.textContent = 'Thanks! We received your enquiry — we will reply shortly.';
+        form.reset();
+      }, 900);
+    });
+
+    // ---------- Make interactive focus outlines for keyboard users ----------
+    (function(){ let mouseMode = true;
+      function handleFirstTab(e){ if(e.key === 'Tab'){ document.body.classList.add('user-tab'); window.removeEventListener('keydown', handleFirstTab); } }
+      window.addEventListener('keydown', handleFirstTab);
+    })();
+
+    // ---------- Accessibility: reduce motion if user prefers ----------
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(mq && mq.matches){
+      document.querySelectorAll('*').forEach(el => {
+        el.style.transitionDuration = '0ms';
+        el.style.animationDuration = '0ms';
+      });
+    }
+  </script>
+</body>
+</html>
